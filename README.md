@@ -1,14 +1,13 @@
-# Kestirimci Bakım — Makine Arızası Tahmini
+# Kestirimci Bakım — Makine Arıza Riski Tahmini
 
-Sensör verisinden makine arızasını, arıza gerçekleşmeden önce tahmin etme çalışması.
-AI4I 2020 Predictive Maintenance veri seti üzerinde uçtan uca bir analiz: veri
-incelemesi, fiziksel bilgiye dayalı özellik türetme, sınıf dengesizliği yönetimi ve
-çalışma noktası seçimi.
+Sensör ölçümlerinden makine arıza riskini belirleme çalışması. AI4I 2020 Predictive
+Maintenance veri seti üzerinde uçtan uca bir analiz: veri incelemesi, fiziksel bilgiye
+dayalı özellik türetme, sınıf dengesizliği yönetimi ve çalışma noktası seçimi.
 
 ## Soru
 
 Bir freze makinesinin hava/proses sıcaklığı, devir, tork ve takım aşınması ölçümleri
-elimizde. **Bu ölçümlerden arızayı önceden görebilir miyiz, ve hangi fiziksel büyüklük
+elimizde. **Bu ölçümlerden arıza riskini görebilir miyiz, ve hangi fiziksel büyüklük
 bunu en çok belirliyor?**
 
 ## Veri
@@ -87,6 +86,19 @@ Devir ve tork başı çekiyor; türetilen **Güç** değişkeni üçüncü sıra
 sıcaklık ölçümünün hepsinden daha bilgilendirici. Arızalar tork–devir düzleminde iki
 uçta toplanıyor: yüksek tork + düşük devir (aşırı yük) ve düşük tork + yüksek devir.
 
+## Sınırlar
+
+Bu çalışma bir **durum sınıflandırması**, zamansal öngörü değil. Veri setinde zaman
+ekseni yok; her satır bağımsız bir anlık ölçüm kaydı. Model "şu anki çalışma koşulları
+arıza bölgesinde mi" sorusunu yanıtlıyor, "makine kaç saat sonra bozulacak" sorusunu
+değil.
+
+Gerçek kalan ömür (RUL) tahmini için aynı makinenin zaman içindeki ölçüm dizisi ve
+arızaya kalan süre etiketi gerekir. Bir sonraki adım bu olurdu.
+
+Takım aşınması biriken bir büyüklük olduğu için model dolaylı olarak riskli bölgeye
+girişi yakalayabiliyor; ancak bunu zamansal bir tahmin gibi sunmak yanlış olur.
+
 ## Grafikler
 
 Betik çalıştırıldığında aşağıdaki grafikler üretilir:
@@ -103,7 +115,7 @@ Betik çalıştırıldığında aşağıdaki grafikler üretilir:
 ```bash
 pip install -r requirements.txt
 mkdir -p data
-# ai4i2020.csv dosyasını data/ klasörüne indirin (yukarıdaki bağlantı)
+# ai4i2020.csv dosyasini data/ klasorune indirin (yukaridaki baglanti)
 python analiz.py
 ```
 
@@ -114,9 +126,9 @@ aynı sonuçlar üretilir.
 
 Endüstriyel otomasyon tarafında step motor ve fırçasız DC sürücüleri Modbus üzerinden
 sürdüğüm çalışmalarda, sürücülerden gerçek hız, tork ve alarm bilgisi zaten okunuyor.
-Bu analiz, o veriyi yalnızca izlemek yerine arıza öngörüsü için kullanmanın ne kadar
-mümkün olduğunu görme denemesi. Sonuçta arızayı en çok belirleyen iki büyüklüğün devir
-ve tork çıkması, bu fikri pratikte denemeye değer kılıyor.
+Bu analiz, o veriyi yalnızca izlemek yerine risk değerlendirmesi için kullanmanın ne
+kadar mümkün olduğunu görme denemesi. Sonuçta arıza riskini en çok belirleyen iki
+büyüklüğün devir ve tork çıkması, bu fikri pratikte denemeye değer kılıyor.
 
 ---
 
