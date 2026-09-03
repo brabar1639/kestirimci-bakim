@@ -15,11 +15,21 @@ bunu en çok belirliyor?**
 
 | | |
 |---|---|
-| Kaynak | AI4I 2020 Predictive Maintenance Dataset (UCI) |
+| Kaynak | AI4I 2020 Predictive Maintenance Dataset (UCI ML Repository) |
 | Kayıt | 10.000 |
 | Özellik | 5 ham ölçüm + 3 türetilmiş |
 | Hedef | `Machine failure` (ikili) |
 | Arıza oranı | **%3.39** — ciddi sınıf dengesizliği |
+
+Veri seti bu repoda yer almıyor. Çalıştırmadan önce `ai4i2020.csv` dosyasını indirip
+`data/` klasörüne koyun:
+
+- **Resmi kaynak:** [UCI ML Repository — AI4I 2020 Predictive Maintenance Dataset](https://archive.ics.uci.edu/dataset/601/ai4i+2020+predictive+maintenance+dataset)
+- **Doğrudan CSV (ayna):** [ai4i2020.csv](https://raw.githubusercontent.com/SamyamoyRakshit/AI4I-2020-Predictive-Maintenance-Dataset__Linear-Regression/main/ai4i2020.csv)
+
+Veri seti sentetiktir; gerçek endüstriyel süreçleri taklit edecek şekilde üretilmiştir.
+Atıf: S. Matzka, *Explainable Artificial Intelligence for Predictive Maintenance
+Applications*, 2020.
 
 ## Yaklaşım
 
@@ -64,6 +74,8 @@ uçta toplanıyor: yüksek tork + düşük devir (aşırı yük) ve düşük tor
 
 ## Grafikler
 
+Betik çalıştırıldığında aşağıdaki grafikler üretilir:
+
 | | |
 |---|---|
 | `figur_1_tork_devir.png` | Arızaların tork–devir düzlemindeki dağılımı |
@@ -75,17 +87,18 @@ uçta toplanıyor: yüksek tork + düşük devir (aşırı yük) ve düşük tor
 
 ```bash
 pip install -r requirements.txt
+mkdir -p data
+# ai4i2020.csv dosyasını data/ klasörüne indirin (yukarıdaki bağlantı)
 python analiz.py
 ```
-
-Veri seti `data/ai4i2020.csv` yolunda olmalıdır.
 
 ## Neden bu konu
 
 Endüstriyel otomasyon tarafında step motor ve fırçasız DC sürücüleri Modbus üzerinden
 sürdüğüm çalışmalarda, sürücülerden gerçek hız, tork ve alarm bilgisi zaten okunuyor.
 Bu analiz, o veriyi yalnızca izlemek yerine arıza öngörüsü için kullanmanın ne kadar
-mümkün olduğunu görme denemesi.
+mümkün olduğunu görme denemesi. Sonuçta arızayı en çok belirleyen iki büyüklüğün devir
+ve tork çıkması, bu fikri pratikte denemeye değer kılıyor.
 
 ---
 
