@@ -66,6 +66,21 @@ gerçek dışı iyi çıkardı.
 Bakım planlaması açısından anlamı: her on uyarının dokuzu gerçek bir arıza. Bu oran,
 uyarıların ciddiye alınabilmesi için gereken eşik.
 
+### Sağlama — etiket karıştırma testi
+
+Sonucun gerçekten öğrenmeden mi yoksa bir sızıntıdan mı geldiğini kontrol etmek için
+eğitim etiketleri karıştırılıp model yeniden eğitildi. Bu durumda öğrenilecek bir
+ilişki kalmadığı için skorun taban çizgiye düşmesi beklenir:
+
+| Durum | PR-AUC |
+|---|---|
+| Taban çizgi | 0.034 |
+| Etiketler karıştırılmış | **0.042** |
+| Gerçek model | **0.835** |
+
+Karıştırılmış etiketle model taban çizgiye çöküyor. Yani 0.835, özellikler ile arıza
+arasındaki gerçek ilişkiden geliyor; ezberleme ya da sızıntı değil.
+
 ### En belirleyici büyüklükler
 
 Devir ve tork başı çekiyor; türetilen **Güç** değişkeni üçüncü sırada ve üç ham
@@ -91,6 +106,9 @@ mkdir -p data
 # ai4i2020.csv dosyasını data/ klasörüne indirin (yukarıdaki bağlantı)
 python analiz.py
 ```
+
+Tüm rastgelelik `random_state` ile sabitlenmiştir; aynı veriyle her çalıştırmada
+aynı sonuçlar üretilir.
 
 ## Neden bu konu
 
