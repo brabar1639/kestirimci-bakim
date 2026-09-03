@@ -196,3 +196,19 @@ pd.DataFrame({
               round(float(duyarlilik), 3), int(fp), int(fn)],
 }).to_csv("sonuclar.csv", index=False)
 print("Grafikler ve sonuclar.csv yazıldı.")
+
+
+# ------------------------------------------------- 7. Sağlama: etiket karıştırma
+# Model gerçekten özellik-etiket ilişkisini mi öğreniyor, yoksa bir sızıntı mı var?
+# Eğitim etiketleri karıştırılırsa öğrenilecek ilişki kalmaz; skor taban çizgiye
+# düşmelidir. Düşmüyorsa veride sızıntı vardır.
+from sklearn.utils import shuffle
+
+y_karisik = shuffle(y_tr.values, random_state=1)
+kontrol = RandomForestClassifier(n_estimators=200, min_samples_leaf=2,
+                                 class_weight="balanced_subsample",
+                                 random_state=RS, n_jobs=-1)
+kontrol.fit(X_tr, y_karisik)
+ap_karisik = average_precision_score(y_te, kontrol.predict_proba(X_te)[:, 1])
+print(f"Sağlama — etiket karıştırılmış PR-AUC: {ap_karisik:.3f} "
+      f"(taban çizgi {base_rate:.3f}, gerçek model {best['ap']:.3f})")
