@@ -1,0 +1,7 @@
+metrik,değer
+PR-AUC,0.835
+eşik,0.684
+kesinlik,0.9
+yakalama,0.635
+yanlış alarm,6.0
+kaçan arıza,31.0
